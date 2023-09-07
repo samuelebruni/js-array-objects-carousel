@@ -1,10 +1,10 @@
 
 
-/* Define the slides list */
+
 const slides = [
-  './assets/img/01.webp', //0
-  './assets/img/02.webp', //1
-  './assets/img/03.webp', //etc
+  './assets/img/01.webp', 
+  './assets/img/02.webp',
+  './assets/img/03.webp', 
   './assets/img/04.webp',
   './assets/img/05.webp',
 ]
@@ -32,30 +32,22 @@ for (let i = 0; i < slides.length; i++) {
   thumbsElement.insertAdjacentHTML('beforeend', thumbMarkup)
 }
 
-scrollImg();
+nextEl.addEventListener('click', scrollImg);
 
-prevEl.addEventListener('click', function () {
-  console.log('cliccato su prev');
-
-  const currentSlide = slidesImages[activeSlide]
-  console.log(currentSlide);
-  currentSlide.classList.remove('active')
-
-  if (activeSlide === 0) {
-    activeSlide = slidesImages.length - 1
-  } else {
-      activeSlide--
-  }
+prevEl.addEventListener('click', reverseDirection);
   
-  console.log(activeSlide);
-
-  const nextSlide = slidesImages[activeSlide]
-  console.log(nextSlide);
-  nextSlide.classList.add('active')
-})
 
 
-document.querySelector('button').addEventListener('click', switchImg);
+document.querySelector('button').addEventListener('click', function(){
+  switchImg('next');
+});
+document.getElementById('reverse').addEventListener('click', function (){
+  switchImg('prev');
+});
+
+
+
+
 
 
 
@@ -79,8 +71,36 @@ function scrollImg() {
     nextThumb.classList.add('active') 
 }
 
-function switchImg() {
-  setInterval(function () {
-    scrollImg();
-  }, 2500);
+function reverseDirection() {
+  const currentSlide = slidesImages[activeSlide]
+  console.log(currentSlide);
+  currentSlide.classList.remove('active')
+
+  if (activeSlide === 0) {
+    activeSlide = slidesImages.length - 1
+  } else {
+      activeSlide--
+  }
+  
+  console.log(activeSlide);
+
+  const nextSlide = slidesImages[activeSlide]
+  console.log(nextSlide);
+  nextSlide.classList.add('active')
+}
+
+let next;
+let prev;
+
+function switchImg(direction) {
+  
+   if (direction === 'next'){
+    clearInterval(prev);
+    next = setInterval(function(){
+      scrollImg()}, 2500)
+   } else {
+    clearInterval(next);
+    prev = setInterval(function(){
+    reverseDirection()}, 2500)
+   }
 }
