@@ -78,7 +78,6 @@ function scrollImg() {
 
 function reverseDirection() {
   const currentSlide = slidesImages[activeSlide]
-  console.log(currentSlide);
   currentSlide.classList.remove('active')
 
   if (activeSlide === 0) {
@@ -90,7 +89,6 @@ function reverseDirection() {
   console.log(activeSlide);
 
   const nextSlide = slidesImages[activeSlide]
-  console.log(nextSlide);
   nextSlide.classList.add('active')
 }
 
